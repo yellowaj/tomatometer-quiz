@@ -8,6 +8,7 @@ class Movie
 
   def initialize
   	self.movies = []
+    get_movies
   end
 
   def clear_movies
@@ -45,7 +46,5 @@ class Movie
       puts "404 error"
     end
   end	   	
-
-
 
 end
