@@ -11,12 +11,20 @@ class Movie
   end
 
   def clear_movies
-  	self.movies = []
+  	self.movies.clear
   end
 
   def get_movies
   	get_movies_by_type
   end	
+
+  def pull_movie(number=1)
+    unless movies.empty?
+      movies.shift(number)
+    else  
+      nil
+    end  
+  end  
 
   private
 
