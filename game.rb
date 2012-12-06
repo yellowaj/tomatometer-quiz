@@ -22,7 +22,7 @@ class Game
   	print_message('the great tomatometer quiz game!')
   	print_message('20 questions to test your film critic prowess...', nil)
   	print_message('How well do you know the tomatometer score for current, past and upcoming movies?', nil)
-  	print_message('20 multiple choice questions. Guess the correct tomatometer score for each film (don\'t cheat online!)', nil)
+  	print_message('Instructions: 20 multiple choice questions. Guess the correct tomatometer score for each film (don\'t cheat online!)', nil)
   	print_message('good luck!', nil)
   end
 
@@ -38,7 +38,7 @@ class Game
 
   def print_message(msg, type='header')
   	if type == 'header'
-  	  puts "-------- #{msg.capitalize} --------\n\n"
+  	  puts "\n-------- #{msg.capitalize} --------\n\n"
   	else
   	  puts "#{msg.capitalize}\n\n"
   	end  
