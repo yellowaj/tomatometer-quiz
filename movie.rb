@@ -24,7 +24,11 @@ class Movie
     else  
       nil
     end  
-  end  
+  end 
+
+  def empty?
+    movies.empty?
+  end 
 
   private
 
