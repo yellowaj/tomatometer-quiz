@@ -26,6 +26,7 @@ class Game
     end
 
     review_score
+    review_questions
     exit_program
   end
 
@@ -44,7 +45,7 @@ class Game
       print_message("\ncome on! it's not that difficult to type: 'start'")
       print_message('try it again...')
     end  
-    print_message("\nhere we go.....")
+    print_message("\nloading films.....")
   end
 
   def ask_question
@@ -77,21 +78,35 @@ class Game
   end  
 
   def review_score
+    correct = number_correct_answers
     case 
-    when @number_correct_answers >= 18
+    when correct >= 18
       puts "\nGreat job! You scored an A!"
-    when @number_correct_answers > 15 && @number_correct_answers <= 17
+    when correct > 15 && correct <= 17
       puts "\nGood job! You scored a B"
-    when @number_correct_answers > 11 && @number_correct_answers <= 14
+    when correct > 11 && correct <= 14
       puts "\nNot bad. You scored a C"
-    when @number_correct_answers > 8 && @number_correct_answers <= 10
+    when correct > 8 && correct <= 10
       puts "\nJust OK. You scored a D" 
-    when @number_correct_answers > 5 && @number_correct_answers <= 7
+    when correct > 5 && correct <= 7
       puts "\nOuch! Were you trying? You scored a D"
     else
       puts "\nHoly crap! Have you ever seen a movie before? You failed!"     
     end
-    puts "\nCorrect answers: #{@number_correct_answers}/20\n\n"
+    puts "\nCorrect answers: #{correct}/20\n\n"
+  end
+
+  def review_questions
+    puts "Do you want to see all the results? commands: [yes, quit, exit]"
+    until quit_game
+      print "\n> "
+      @answer = get_answer
+      display_results if @answer == 'yes'
+    end
+  end
+
+  def display_results
+
   end
 
   private 
@@ -123,9 +138,7 @@ class Game
   end
 
   def number_correct_answers
-    @number_correct_answers = @answer_results.inject(0) do |memo, result|
-      memo += 1 if result[:correct]
-    end
+    @answer_results.select { |res| res[:correct] }.size
   end
 
   def pause_game(sec)
@@ -137,7 +150,7 @@ class Game
   end
 
   def game_ends
-  	if @movies.empty? || @question_number >= 20
+  	if @movies.empty? || @question_number > 20
       puts 'game over...'
       return true
     end 
