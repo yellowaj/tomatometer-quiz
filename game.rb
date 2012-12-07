@@ -24,9 +24,9 @@ class Game
       pause_game(0.3)
       break if game_ends
     end
-
+    puts @answer_results
     review_score
-    review_questions
+    end_of_game_review
     exit_program
   end
 
@@ -96,7 +96,7 @@ class Game
     puts "\nCorrect answers: #{correct}/20\n\n"
   end
 
-  def review_questions
+  def end_of_game_review
     puts "Do you want to see all the results? commands: [yes, quit, exit]"
     until quit_game
       print "\n> "
@@ -106,7 +106,18 @@ class Game
   end
 
   def display_results
-
+    i = 1
+    @answer_results.each do |result|
+      puts "\nQuestion #{i}/20: #{result[:movie][:title]}"
+      if result[:correct]
+        puts "Result: CORRECT\n\n"
+      else
+        puts "Result: INCORRECT"
+        puts "Your answer: #{result[:answer]}"
+        puts "Correct answer: #{result[:correct_answer]}\n\n"
+      end  
+      i += 1
+    end
   end
 
   private 
