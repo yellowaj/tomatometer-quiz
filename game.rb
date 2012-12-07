@@ -4,10 +4,6 @@ class Game
 
   @@exit_commands = ['quit', 'exit']
 
-  def initialize
-  	
-  end
-
   def launch
   	start_game
     
@@ -21,10 +17,9 @@ class Game
       @answer = get_answer.to_i
       examine_answer
       update_question_number
-      pause_game(0.3)
       break if game_ends
     end
-    puts @answer_results
+
     review_score
     end_of_game_review
     exit_program
@@ -42,8 +37,8 @@ class Game
       print "\n> "
       answer = get_answer
       exit_program if @@exit_commands.include?(answer)
-      print_message("\ncome on! it's not that difficult to type: 'start'")
-      print_message('try it again...')
+      print_message("\ncome on! it's not that difficult to type: 'start'") unless answer == 'start'
+      print_message('try it again...') unless answer == 'start'
     end  
     print_message("\nloading films.....")
   end
@@ -151,10 +146,6 @@ class Game
   def number_correct_answers
     @answer_results.select { |res| res[:correct] }.size
   end
-
-  def pause_game(sec)
-    sleep(sec)
-  end  
 
   def quit_game
   	@@exit_commands.include?(@answer)

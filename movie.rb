@@ -30,6 +30,10 @@ class Movie
     end  
   end  
 
+  def empty?
+    movies.empty?
+  end
+
   private
 
   def shuffle_movies
@@ -52,5 +56,5 @@ class Movie
       puts "404 error"
     end
   end	   	
-  
+
 end
