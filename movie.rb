@@ -8,6 +8,8 @@ class Movie
 
   def initialize
   	self.movies = []
+    get_movies
+    shuffle_movies
   end
 
   def clear_movies
@@ -15,7 +17,9 @@ class Movie
   end
 
   def get_movies
-  	get_movies_by_type
+  	get_movies_by_type('movies', 'in_theaters')
+    get_movies_by_type('movies','upcoming')
+    get_movies_by_type('dvds','top_rentals')
   end	
 
   def pull_movie(number=1)
@@ -28,9 +32,16 @@ class Movie
 
   private
 
-  def get_movies_by_type(type='in_theaters')
+  def shuffle_movies
+    self.movies.shuffle!
+  end
+
+  def get_movies_by_type(cat='movies', type='in_theaters')
+    url = "http://api.rottentomatoes.com/api/public/v1.0/lists/"
+    url += (cat == 'dvds') ? "dvds/" : "movies/"
+    url += "#{type}.json?apikey=#{API_KEY}"
   	begin
-      movie_data = open("http://api.rottentomatoes.com/api/public/v1.0/lists/movies/#{type}.json?apikey=#{API_KEY}").read
+      movie_data = open(url).read
 
       movie_json = JSON.parse(movie_data, symbolize_names: true)
 
@@ -41,7 +52,5 @@ class Movie
       puts "404 error"
     end
   end	   	
-
-
-
+  
 end

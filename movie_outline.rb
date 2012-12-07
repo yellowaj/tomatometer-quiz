@@ -1,5 +1,3 @@
-API_Key = 'caayc7ber87wydmp69akr57c'
-
 # App Requirements:
 #
 
