@@ -14,7 +14,7 @@ class Game
     until quit_game
       ask_question
       print "\n> "
-      @answer = get_answer.to_i
+      @answer = get_answer
       examine_answer
       update_question_number
       break if game_ends
@@ -28,9 +28,9 @@ class Game
   def start_game
   	print_message('the great tomatometer quiz game!', :header)
   	print_message('20 questions to test your film critic prowess...')
-  	print_message('How well do you know the tomatometer score for current, past and upcoming movies?')
+  	print_message('How well do you know the tomatometer audience score for current, past and upcoming movies?')
   	print_message('Instructions: 20 multiple choice questions. Guess the correct tomatometer score for each film (don\'t cheat online!)')
-    print_message('ready to start? [type "start" to begin]')
+    puts 'ready to start? [type "start" to begin]'
   
     answer = nil
     until answer == 'start'
@@ -40,7 +40,7 @@ class Game
       print_message("\ncome on! it's not that difficult to type: 'start'") unless answer == 'start'
       print_message('try it again...') unless answer == 'start'
     end  
-    print_message("\nloading films.....")
+    puts "\nloading films....."
   end
 
   def ask_question
@@ -56,10 +56,10 @@ class Game
   end
 
   def examine_answer
-    return nil if quit_game
-    result_data = { movie: @current_movie, answer: @answer, correct_answer: @current_movie[:score], correct: false }
+    exit_program if quit_game
+    result_data = { movie: @current_movie, answer: @answer.to_i, correct_answer: @current_movie[:score], correct: false }
 
-    if @current_movie[:score] == @answer
+    if @current_movie[:score] == @answer.to_i
       # correct response message
       puts "\n---- #{'correct'.upcase}! ----"
 

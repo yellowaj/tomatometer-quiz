@@ -4,7 +4,7 @@ require_relative 'config'
 
 class Movie
 
-  attr_accessor :score, :title, :link, :movies
+  attr_accessor :movies
 
   def initialize
   	self.movies = []
@@ -40,10 +40,13 @@ class Movie
     self.movies.shuffle!
   end
 
-  def get_movies_by_type(cat='movies', type='in_theaters')
+  def get_movies_by_type(cat='movies', type='in_theaters', limit=10)
     url = "http://api.rottentomatoes.com/api/public/v1.0/lists/"
     url += (cat == 'dvds') ? "dvds/" : "movies/"
     url += "#{type}.json?apikey=#{API_KEY}"
+    url += "&page_limit=#{limit}" if cat == 'movies'
+    url += "&limit=#{limit}" if type == 'top_rentals'
+
   	begin
       movie_data = open(url).read
 
